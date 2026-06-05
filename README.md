@@ -2,6 +2,8 @@
 
 An AI-powered weather intelligence dashboard that consumes the [WeatherAI API](https://weather-ai.co/docs) to deliver real-time weather data, Gemini AI summaries, 7-day forecasts, hourly temperature charts, and agroforestry tree analysis from drone/satellite imagery.
 
+**Live Url** : https://weatherapp-by-afridi.netlify.app
+
 ## Features
 
 ### 🌤️ Weather Intelligence
@@ -101,7 +103,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## Deployment
 
-**Live URL:** [https://iamafridi.github.io/weather-AI-By-Afridi/](https://iamafridi.github.io/weather-AI-By-Afridi/)
+**Live URL:** [https://weatherapp-by-afridi.netlify.app/](https://weatherapp-by-afridi.netlify.app/)
 
 ### Deploy Your Own
 
@@ -150,16 +152,6 @@ src/
     ├── formatters.js          # Display formatters
     └── weatherIcons.js        # WMO code → emoji mapping
 ```
-
-## What's Next
-
-- [ ] TypeScript migration for type-safe API interactions
-- [ ] Unit + integration tests (Vitest + React Testing Library)
-- [ ] Search history with recent locations
-- [ ] PWA support with offline fallback
-- [ ] Dark/light theme toggle
-- [ ] Language selector (Swahili, French, etc.)
-- [ ] Webhook management UI
 
 ## License
 
