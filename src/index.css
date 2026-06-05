@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --accent:  #2af5c8;
+    --accent2: #0ea5e9;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply bg-bg text-wtext font-sans;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { @apply bg-bg2; }
+  ::-webkit-scrollbar-thumb { @apply bg-muted2 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-muted; }
+}
+
+@layer components {
+  /* Glass card */
+  .glass {
+    @apply bg-bg3/70 border border-white/[0.06] backdrop-blur-md rounded-xl2;
+  }
+  .glass-accent {
+    @apply glass border-accent/[0.15];
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #2af5c8 0%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Shimmer skeleton */
+  .skeleton {
+    background: linear-gradient(90deg, #0f1e35 25%, #132540 50%, #0f1e35 75%);
+    background-size: 200% 100%;
+    @apply animate-shimmer rounded;
+  }
+
+  /* Section eyebrow */
+  .eyebrow {
+    @apply font-mono text-[10px] text-accent tracking-[0.14em] uppercase flex items-center gap-2;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply inline-block w-4 h-px bg-accent;
+  }
+
+  /* Pill badge */
+  .plan-badge-free  { @apply font-mono text-[9px] font-semibold px-2 py-0.5 rounded-full bg-muted/10 text-muted border border-white/10 tracking-wider uppercase; }
+  .plan-badge-pro   { @apply font-mono text-[9px] font-semibold px-2 py-0.5 rounded-full bg-accent2/10 text-blue-400 border border-blue-400/25 tracking-wider uppercase; }
+  .plan-badge-scale { @apply font-mono text-[9px] font-semibold px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/25 tracking-wider uppercase; }
+
+  /* Live badge */
+  .live-badge {
+    @apply flex items-center gap-1.5 font-mono text-[9px] font-semibold text-wgreen tracking-widest uppercase bg-wgreen/10 border border-wgreen/20 rounded-full px-2 py-0.5;
+  }
+
+  /* Input */
+  .wai-input {
+    @apply bg-bg3 border border-white/10 rounded-lg text-wtext font-mono text-xs px-3 py-2 outline-none
+           transition-all duration-200
+           focus:border-accent focus:shadow-[0_0_0_3px_rgba(42,245,200,0.08)];
+  }
+  .wai-input::placeholder { @apply text-muted2; }
+}
+
+@layer utilities {
+  .bg-radial-accent {
+    background: radial-gradient(circle, rgba(42,245,200,0.05) 0%, transparent 70%);
+  }
+  .border-accent-subtle { border-color: rgba(42,245,200,0.15); }
+  .text-shadow-glow { text-shadow: 0 0 20px rgba(42,245,200,0.4); }
+}
