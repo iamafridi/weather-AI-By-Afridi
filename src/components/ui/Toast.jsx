@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useWeatherContext } from '../../context/WeatherContext';
+import { useWeatherContext } from '../../context/useWeatherContext';
 import { CheckCircle, AlertCircle, AlertTriangle, Info, X } from 'lucide-react';
 
 const icons = {

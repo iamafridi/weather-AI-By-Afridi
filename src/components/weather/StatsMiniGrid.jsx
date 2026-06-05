@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Eye, Sunrise, Sunset, Thermometer } from 'lucide-react';
-import { useWeatherContext } from '../../context/WeatherContext';
+import { useWeatherContext } from '../../context/useWeatherContext';
 import { fmtTime, fmtVisibility, get } from '../../utils/formatters';
 
 export default function StatsMiniGrid() {

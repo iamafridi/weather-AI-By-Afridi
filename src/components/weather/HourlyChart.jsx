@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { useWeatherContext } from '../../context/WeatherContext';
+import { useWeatherContext } from '../../context/useWeatherContext';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid,
+  XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, Area, AreaChart
 } from 'recharts';
 

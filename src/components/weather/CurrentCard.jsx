@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { MapPin, Droplets, Wind, Sun, Gauge } from 'lucide-react';
-import { useWeatherContext } from '../../context/WeatherContext';
+import { useWeatherContext } from '../../context/useWeatherContext';
 import { getWeatherIcon, uvLabel, windDir } from '../../utils/weatherIcons';
 import { fmtTemp, fmtHumidity, fmtWind, fmtPressure, get } from '../../utils/formatters';
 

@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useWeatherContext } from './context/WeatherContext';
+import { useWeatherContext } from './context/useWeatherContext';
 import Topbar from './components/layout/Topbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/hero/Hero';

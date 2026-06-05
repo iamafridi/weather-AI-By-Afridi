@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Key, Eye, EyeOff, Activity } from 'lucide-react';
-import { useWeatherContext } from '../../context/WeatherContext';
+import { useWeatherContext } from '../../context/useWeatherContext';
 import { useUsage } from '../../hooks/useUsage';
 
 export default function Topbar() {

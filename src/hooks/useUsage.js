@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useWeatherContext } from '../context/WeatherContext';
+import { useWeatherContext } from '../context/useWeatherContext';
 import { fetchUsage } from '../services/api';
 
 export const useUsage = () => {

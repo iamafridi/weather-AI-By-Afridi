@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import { useWeatherContext } from '../context/WeatherContext';
+import { useWeatherContext } from '../context/useWeatherContext';
 import { fetchWeatherByCoords, fetchWeatherByCity } from '../services/api';
 import { fetchHourly } from '../services/api';
 import { addRecentSearch } from '../utils/searchHistory';

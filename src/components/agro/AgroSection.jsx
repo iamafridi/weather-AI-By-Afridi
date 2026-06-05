@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback } from 'react';
 import { Upload, Loader } from 'lucide-react';
 import { analyzeTree } from '../../services/api';
-import { useWeatherContext } from '../../context/WeatherContext';
+import { useWeatherContext } from '../../context/useWeatherContext';
 import AgroResults from './AgroResults';
 import AgroQuota from './AgroQuota';
 
@@ -15,7 +15,7 @@ export default function AgroSection() {
   const [loading, setLoading]   = useState(false);
   const [result, setResult]     = useState(null);
 
-  const handleFile = (file) => {
+  const handleFile = useCallback((file) => {
     if (!file) return;
     if (!['image/jpeg','image/png','image/webp'].includes(file.type)) {
       toast('Please upload a JPEG, PNG, or WEBP image.', 'warning'); return;
@@ -26,12 +26,12 @@ export default function AgroSection() {
     setImage(file);
     setPreview(URL.createObjectURL(file));
     setResult(null);
-  };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onDrop = useCallback((e) => {
     e.preventDefault(); setDragging(false);
     handleFile(e.dataTransfer.files[0]);
-  }, []);
+  }, [handleFile]);
 
   const onDragOver = (e) => { e.preventDefault(); setDragging(true); };
   const onDragLeave = () => setDragging(false);

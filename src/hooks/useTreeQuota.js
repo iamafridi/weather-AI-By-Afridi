@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { fetchTreeQuota } from '../services/api';
-import { useWeatherContext } from '../context/WeatherContext';
+import { useWeatherContext } from '../context/useWeatherContext';
 
 export const useTreeQuota = () => {
   const { state } = useWeatherContext();
@@ -8,16 +8,18 @@ export const useTreeQuota = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const ready = Boolean(state.apiKey);
+
   useEffect(() => {
-    if (!state.apiKey) return;
+    if (!ready) return;
     let cancelled = false;
-    setLoading(true);
+    startTransition(() => setLoading(true));
     fetchTreeQuota()
       .then(({ data }) => { if (!cancelled) setQuota(data); })
       .catch((err) => { if (!cancelled) setError(err.message); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, [state.apiKey]);
+  }, [ready]);
 
   return { quota, loading, error };
 };

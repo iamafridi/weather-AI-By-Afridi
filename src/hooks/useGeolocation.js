@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { useWeatherContext } from '../context/WeatherContext';
+import { useWeatherContext } from '../context/useWeatherContext';
 
 export const useGeolocation = () => {
   const { toast } = useWeatherContext();

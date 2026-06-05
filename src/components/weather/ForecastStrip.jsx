@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { Lock } from 'lucide-react';
-import { useWeatherContext } from '../../context/WeatherContext';
+import { useWeatherContext } from '../../context/useWeatherContext';
 import { getWeatherIcon } from '../../utils/weatherIcons';
-import { fmtDay, fmtTemp, fmtPrecip } from '../../utils/formatters';
+import { fmtDay, fmtPrecip } from '../../utils/formatters';
 
 const container = {
   hidden: {},

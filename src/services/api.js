@@ -60,7 +60,7 @@ const request = async (url, options = {}, retry = 1) => {
   };
 
   let body = {};
-  try { body = await res.json(); } catch (_) { /* ignore parse errors */ }
+  try { body = await res.json(); } catch { /* ignore parse errors */ }
 
   const err = new Error(messages[res.status] || `Unexpected error (${res.status})`);
   err.status = res.status;
@@ -164,7 +164,7 @@ export const analyzeTree = async ({ image, farmerId, county, landAcres, location
   };
 
   let body = {};
-  try { body = await res.json(); } catch (_) { /* ignore */ }
+  try { body = await res.json(); } catch { /* ignore */ }
 
   const err = new Error(messages[res.status] || `Error ${res.status}`);
   err.status = res.status;
