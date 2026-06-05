@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { MapPin, Droplets, Wind, Sun, Gauge } from 'lucide-react';
+import { MapPin, Droplets, Wind, Sun } from 'lucide-react';
 import { useWeatherContext } from '../../context/useWeatherContext';
-import { getWeatherIcon, uvLabel, windDir } from '../../utils/weatherIcons';
-import { fmtTemp, fmtHumidity, fmtWind, fmtPressure, get } from '../../utils/formatters';
+import { getWeatherIcon, uvLabel, windDir, wmoDescription } from '../../utils/weatherIcons';
+import { fmtTemp, fmtHumidity, fmtWind, get } from '../../utils/formatters';
 
 export default function CurrentCard() {
   const { state } = useWeatherContext();
@@ -10,25 +10,22 @@ export default function CurrentCard() {
   const loc = state.location;
   const units = state.units;
 
-  // Try various known response shapes from the API
-  const current = w?.current ?? w?.data?.current ?? w;
-  const temp       = get(current, 'temp') ?? get(current, 'temperature');
-  const feelsLike  = get(current, 'feels_like') ?? get(current, 'feelslike');
-  const desc       = get(current, 'description') ?? get(current, 'condition') ?? get(current, 'weather_description', '');
-  const humidity   = get(current, 'humidity');
-  const wind       = get(current, 'wind_speed') ?? get(current, 'windspeed');
-  const windDeg    = get(current, 'wind_direction') ?? get(current, 'winddirection', null);
-  const uvIdx      = get(current, 'uv_index') ?? get(current, 'uvi', null);
-  const pressure   = get(current, 'pressure');
-  const condition  = get(current, 'condition_code') ?? get(current, 'code') ?? desc;
-  const icon       = getWeatherIcon(condition === '—' ? desc : condition);
+  const current  = w?.current ?? w?.data?.current ?? w;
+  const temp     = get(current, 'temperature');
+  const feelsLike = get(current, 'feels_like');
+  const humidity  = get(current, 'humidity');
+  const wind      = get(current, 'wind_speed');
+  const windDeg   = get(current, 'wind_direction', null);
+  const uvIdx     = get(current, 'uv_index', null);
+  const condition = get(current, 'condition_code');
+  const icon      = getWeatherIcon(condition === '—' ? null : condition);
+  const desc      = wmoDescription(condition === '—' ? null : condition);
   const { label: uvText, color: uvColor } = uvLabel(uvIdx === '—' ? null : uvIdx);
 
   const stats = [
     { Icon: Droplets, label: 'Humidity',  value: fmtHumidity(humidity === '—' ? null : humidity) },
     { Icon: Wind,     label: 'Wind',      value: fmtWind(wind === '—' ? null : wind, units) + (windDeg !== null && windDeg !== '—' ? ` ${windDir(windDeg)}` : '') },
     { Icon: Sun,      label: 'UV Index',  value: uvIdx === '—' ? '—' : uvIdx, extra: uvText, color: uvColor },
-    { Icon: Gauge,    label: 'Pressure',  value: fmtPressure(pressure === '—' ? null : pressure) },
   ];
 
   return (
@@ -73,7 +70,7 @@ export default function CurrentCard() {
       </p>
 
       {/* Stats row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-white/[0.06] pt-4 mt-auto">
+      <div className="grid grid-cols-3 gap-3 border-t border-white/[0.06] pt-4 mt-auto">
         {stats.map(({ Icon, label, value, extra, color }) => (
           <div key={label} className="flex flex-col items-center gap-1.5 text-center">
             <Icon size={14} className="text-accent/70" />

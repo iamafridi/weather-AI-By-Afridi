@@ -4,6 +4,11 @@ import { fetchWeatherByCoords, fetchWeatherByCity } from '../services/api';
 import { fetchHourly } from '../services/api';
 import { addRecentSearch } from '../utils/searchHistory';
 
+const resolveName = (data, fallback) => {
+  const raw = data?.location ?? data?.city ?? data?.name ?? fallback;
+  return typeof raw === 'string' ? raw : fallback;
+};
+
 export const useWeather = () => {
   const { state, dispatch, toast } = useWeatherContext();
   const abortRef = useRef(null);
@@ -11,7 +16,6 @@ export const useWeather = () => {
   const searchByCity = useCallback(async (city) => {
     if (!city.trim()) return;
 
-    // Cancel in-flight request
     if (abortRef.current) abortRef.current.abort();
     const controller = new AbortController();
     abortRef.current = controller;
@@ -26,7 +30,7 @@ export const useWeather = () => {
           data,
           meta,
           location: {
-            name: data?.location ?? data?.city ?? city,
+            name: resolveName(data, city),
             lat:  data?.lat,
             lon:  data?.lon,
           },
@@ -50,14 +54,15 @@ export const useWeather = () => {
     dispatch({ type: 'WEATHER_LOADING' });
     try {
       const { data, meta } = await fetchWeatherByCoords(lat, lon, 7, controller.signal);
-      addRecentSearch(name || data?.location || data?.city || `${lat.toFixed(2)}, ${lon.toFixed(2)}`);
+      const locationName = resolveName(data, name || `${lat.toFixed(2)}, ${lon.toFixed(2)}`);
+      addRecentSearch(locationName);
       dispatch({
         type: 'WEATHER_SUCCESS',
         payload: {
           data,
           meta,
           location: {
-            name: name || data?.location || data?.city || `${lat.toFixed(2)}, ${lon.toFixed(2)}`,
+            name: locationName,
             lat,
             lon,
           },

@@ -12,17 +12,15 @@ export default function Hero() {
   const [query, setQuery]       = useState('');
   const [showHistory, setShowHistory] = useState(false);
   const [recentSearches, setRecentSearches] = useState(getRecentSearches());
-  const headlineRef             = useRef(null);
-  const subRef                  = useRef(null);
-  const searchRef               = useRef(null);
-  const tagsRef                 = useRef(null);
+  const headlineRef = useRef(null);
+  const searchRef   = useRef(null);
+  const tagsRef     = useRef(null);
   const { searchByCity, searchByCoords, loading } = useWeather();
   const { locate, locating }    = useGeolocation();
 
   // GSAP entrance on mount
   useEffect(() => {
-    const tl = heroEntrance([headlineRef.current, subRef.current], { stagger: 0.12, y: 50, duration: 0.8 });
-    heroEntrance([searchRef.current, tagsRef.current], { stagger: 0.1, y: 30, delay: 0.25 });
+    const tl = heroEntrance([headlineRef.current, searchRef.current, tagsRef.current], { stagger: 0.12, y: 50, duration: 0.8 });
     return () => tl.kill();
   }, []);
 

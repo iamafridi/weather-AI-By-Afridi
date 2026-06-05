@@ -23,19 +23,16 @@ export default function HourlyChart() {
   const { state } = useWeatherContext();
   const hourly = state.hourly;
 
-  // Normalise various response shapes
-  const rawHours =
-    hourly?.hourly ??
-    hourly?.data?.hourly ??
-    (Array.isArray(hourly) ? hourly : null);
+  // The dedicated /v1/hourly endpoint returns an array directly
+  const rawHours = Array.isArray(hourly) ? hourly : hourly?.hourly ?? hourly?.data?.hourly ?? null;
 
   if (!rawHours && !state.hourlyLoading) return null;
 
   const chartData = rawHours
     ? rawHours.slice(0, 24).map((h) => ({
-        time:   h.time ?? h.hour ?? h.datetime ?? '—',
-        Temp:   h.temp ?? h.temperature ?? h.temp_c ?? 0,
-        Rain:   h.precipitation_probability ?? h.pop ?? h.humidity ?? 0,
+        time:   h.time ?? '—',
+        Temp:   h.temperature ?? 0,
+        Rain:   h.precipitation_probability ?? 0,
       }))
     : [];
 

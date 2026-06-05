@@ -16,14 +16,10 @@ export const heroEntrance = (selector, opts = {}) => {
     delay    = 0,
   } = opts;
 
-  return gsap.from(selector, {
-    opacity:  0,
-    y,
-    duration,
-    stagger,
-    delay,
-    ease: 'power3.out',
-  });
+  return gsap.fromTo(selector,
+    { opacity: 0, y },
+    { opacity: 1, y: 0, duration, stagger, delay, ease: 'power3.out' }
+  );
 };
 
 /**
@@ -39,18 +35,18 @@ export const scrollReveal = (selector, opts = {}) => {
     start    = 'top 88%',
   } = opts;
 
-  return gsap.from(selector, {
-    opacity: 0,
-    y,
-    duration,
-    stagger,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: typeof selector === 'string' ? selector : selector,
-      start,
-      toggleActions: 'play none none none',
-    },
-  });
+  return gsap.fromTo(selector,
+    { opacity: 0, y },
+    {
+      opacity: 1, y: 0, duration, stagger,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: typeof selector === 'string' ? selector : selector,
+        start,
+        toggleActions: 'play none none none',
+      },
+    }
+  );
 };
 
 /**

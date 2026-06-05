@@ -7,14 +7,8 @@ export default function AISummaryCard() {
   const { state } = useWeatherContext();
   const w = state.weather;
 
-  const summary =
-    w?.ai_summary ??
-    w?.summary ??
-    w?.ai ??
-    w?.data?.ai_summary ??
-    null;
-
-  const aiDisabled = w && !summary;
+  const summary = null;
+  const aiDisabled = !!w;
 
   return (
     <motion.div

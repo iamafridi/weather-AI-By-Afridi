@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { Eye, Sunrise, Sunset, Thermometer } from 'lucide-react';
+import { Wind, Sunrise, Sunset, Droplets } from 'lucide-react';
 import { useWeatherContext } from '../../context/useWeatherContext';
-import { fmtTime, fmtVisibility, get } from '../../utils/formatters';
+import { fmtTime, fmtWind, get } from '../../utils/formatters';
 
 export default function StatsMiniGrid() {
   const { state } = useWeatherContext();
@@ -9,29 +9,30 @@ export default function StatsMiniGrid() {
   if (!w) return null;
 
   const current = w?.current ?? w?.data?.current ?? w;
+  const day0    = w?.daily?.[0];
 
   const stats = [
     {
-      icon: <Eye size={22} className="text-accent2" />,
-      label: 'Visibility',
-      value: fmtVisibility(get(current, 'visibility', null) === '—' ? null : get(current, 'visibility', null)),
+      icon: <Wind size={22} className="text-accent2" />,
+      label: 'Wind Gust',
+      value: fmtWind(get(current, 'wind_gust', null) === '—' ? null : get(current, 'wind_gust', null), state.units),
     },
     {
       icon: <Sunrise size={22} className="text-wyellow" />,
       label: 'Sunrise',
-      value: fmtTime(get(current, 'sunrise', null) === '—' ? null : get(current, 'sunrise', null)),
+      value: fmtTime(day0?.sunrise ?? null),
     },
     {
       icon: <Sunset size={22} className="text-worange" />,
       label: 'Sunset',
-      value: fmtTime(get(current, 'sunset', null) === '—' ? null : get(current, 'sunset', null)),
+      value: fmtTime(day0?.sunset ?? null),
     },
     {
-      icon: <Thermometer size={22} className="text-wred" />,
-      label: 'Dew Point',
-      value: get(current, 'dew_point', null) === null || get(current, 'dew_point', null) === '—'
-        ? '—'
-        : `${Math.round(get(current, 'dew_point'))}°`,
+      icon: <Droplets size={22} className="text-accent" />,
+      label: 'Precip Sum',
+      value: day0?.precipitation_sum !== null && day0?.precipitation_sum !== undefined
+        ? `${Math.round(day0.precipitation_sum)} mm`
+        : '—',
     },
   ];
 

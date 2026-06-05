@@ -17,14 +17,7 @@ export default function ForecastStrip() {
   const { state } = useWeatherContext();
   const w = state.weather;
 
-  // Support various response shapes
-  const forecast =
-    w?.forecast ??
-    w?.daily ??
-    w?.data?.forecast ??
-    w?.data?.daily ??
-    [];
-
+  const forecast = w?.daily ?? [];
   const days = Array.isArray(forecast) ? forecast.slice(0, 7) : [];
 
   if (!w && !state.loading) return null;
@@ -63,11 +56,10 @@ export default function ForecastStrip() {
           {days.map((day, idx) => {
             const dateStr = day.date ?? day.day ?? day.time ?? '';
             const isToday = idx === 0;
-            const hi      = day.temp_max ?? day.maxtemp_c ?? day.high ?? day.max ?? '—';
-            const lo      = day.temp_min ?? day.mintemp_c ?? day.low  ?? day.min ?? '—';
-            const desc    = day.description ?? day.condition ?? day.summary ?? '';
-            const precip  = day.precipitation_probability ?? day.pop ?? day.precip_prob ?? null;
-            const icon    = getWeatherIcon(day.condition_code ?? day.code ?? desc);
+            const hi      = day.temp_max ?? '—';
+            const lo      = day.temp_min ?? '—';
+            const precip  = day.precipitation_probability ?? null;
+            const icon    = getWeatherIcon(day.condition_code);
 
             return (
               <motion.div
