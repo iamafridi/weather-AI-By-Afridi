@@ -101,9 +101,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## Deployment
 
-This project is deployed on Netlify:
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/<badge-id>/deploy-status)](<deploy-url>)
+**Live URL:** [https://iamafridi.github.io/weather-AI-By-Afridi/](https://iamafridi.github.io/weather-AI-By-Afridi/)
 
 ### Deploy Your Own
 
